@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { EmailApiService } from '../../modules/email-search/email-api.service';
 
 @Component({
   selector: 'app-compose-email',
   templateUrl: './compose-email.component.html',
-  styleUrls: ['./compose-email.component.scss']
+  styleUrls: ['./compose-email.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ComposeEmailComponent implements OnInit {
   public toEmail: string;
