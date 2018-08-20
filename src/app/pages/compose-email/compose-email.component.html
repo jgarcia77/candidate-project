@@ -1,0 +1,22 @@
+<p>
+  compose-email works!
+</p>
+
+<div>
+  To: <app-email-typeahead [max]='1' (selected)='toEmailSelected($event)'></app-email-typeahead>
+</div>
+
+<div>
+  CC: <app-email-typeahead [max]='1' (selected)='ccEmailSelected($event)'></app-email-typeahead>
+</div>
+
+<div>
+  Subject <input type='text' [(ngModel)]='data.subject' />
+</div>
+
+<div>
+  <div>Body</div>
+  <textarea [(ngModel)]='data.body'></textarea>
+</div>
+
+<button (click)='submit()'>Submit</button>
