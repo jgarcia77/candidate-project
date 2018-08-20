@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 import { EmailTypeaheadComponent } from './email-typeahead.component';
+import { EmailApiService } from './email-api.service';
 
 describe('EmailTypeaheadComponent', () => {
   let component: EmailTypeaheadComponent;
@@ -8,7 +10,9 @@ describe('EmailTypeaheadComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EmailTypeaheadComponent ]
+      imports: [FormsModule, HttpClientModule],
+      declarations: [ EmailTypeaheadComponent ],
+      providers: [EmailApiService]
     })
     .compileComponents();
   }));
