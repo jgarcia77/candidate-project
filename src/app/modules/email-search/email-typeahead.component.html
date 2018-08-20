@@ -1,7 +1,7 @@
 <input type='text' (keyup)='search()' [(ngModel)]="searchValue" />
 
-<ul>
-  <li *ngFor='let user of users' (click)='select(user)'>
+<ul class='type-ahead-results' *ngIf='showSearchResults()'>
+  <li *ngFor='let user of searchResults' (click)='select(user)'>
     {{user.email}}
   </li>
 </ul>

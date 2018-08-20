@@ -1,0 +1,23 @@
+ul.type-ahead-results {
+    list-style: none;
+    border: thin black solid;
+    padding: 5px 0px 5px 5px;
+    width: 300px;
+    position: absolute;
+    z-index: 999;
+    background-color: white;
+    margin-top: 0px;
+    max-height: 200px;
+    overflow: auto;
+}
+
+ul.type-ahead-results {
+    li {
+        cursor: pointer;
+        word-wrap: break-word;
+    }
+
+    li:hover {
+        background-color: whitesmoke;
+    }
+}

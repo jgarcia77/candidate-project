@@ -8,10 +8,8 @@ import { EmailApiService } from '../../modules/email-search/email-api.service';
   encapsulation: ViewEncapsulation.None
 })
 export class ComposeEmailComponent implements OnInit {
-  public toEmail: string;
-  public ccEmail: string[] = [];
-  public subject: string;
-  public body: string;
+  public toSearchValue: string;
+  public ccSearchValue: string;
 
   public data = {
     'to': '',
@@ -19,6 +17,8 @@ export class ComposeEmailComponent implements OnInit {
     'subject': '',
     'body': ''
   };
+
+  public responseMessage: string;
 
   constructor(private service: EmailApiService) { }
 
@@ -37,20 +37,26 @@ export class ComposeEmailComponent implements OnInit {
 
   public submit(): void {
     this.service.submit(this.data).subscribe(result => {
-      console.log(result);
+      this.responseMessage = 'Your email has been submitted';
+      this.toSearchValue = '';
+      this.ccSearchValue = '';
+      this.data.to = '';
+      this.data.cc = [];
+      this.data.subject = '';
+      this.data.body = '';
     }, error => {
       console.log(error);
       switch (error.status) {
         case 400:
-          console.error('your submission was invalid');
+          this.responseMessage = 'Your submission was invalid';
           break;
 
         case 500:
-          console.error('your submission was unsuccessful, please try again');
+        this.responseMessage = 'Your submission was unsuccessful, please try again';
           break;
 
         default:
-          console.error('en error has occurred');
+          this.responseMessage = 'An error has occurred';
           break;
       }
     });

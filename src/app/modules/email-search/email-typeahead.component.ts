@@ -8,24 +8,25 @@ import { EmailApiService } from './email-api.service';
 })
 export class EmailTypeaheadComponent implements OnInit {
   @Input() max: number;
+  @Input() searchValue: string;
+  @Output() searchValueChange = new EventEmitter();
   @Output() selected: EventEmitter<string> = new EventEmitter();
-
-  public searchValue: string;
-  public users: any[] = [];
+  public searchResults: any[] = [];
 
   constructor(private serivce: EmailApiService) { }
 
   ngOnInit() {}
 
   public search(): void {
+    this.searchValueChange.emit(this.searchValue);
     if (this.searchValue) {
       this.serivce.searchByName(this.searchValue).subscribe(result => {
-        this.users = result['users'];
+        this.searchResults = result['users'];
       }, error => {
-        this.users = [];
+        this.searchResults = [];
       });
     } else {
-      this.users = [];
+      this.searchResults = [];
     }
   }
 
@@ -33,7 +34,11 @@ export class EmailTypeaheadComponent implements OnInit {
     if (this.max === 1) {
       this.searchValue = user.email;
     }
-    this.users = [];
+    this.searchResults = [];
     this.selected.emit(user.email);
+  }
+
+  public showSearchResults(): boolean {
+    return this.searchResults && this.searchResults.length !== 0;
   }
 }
