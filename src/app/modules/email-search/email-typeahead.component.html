@@ -1,7 +1,11 @@
 <input type='text' (keyup)='search()' [(ngModel)]="searchValue" />
 
 <ul class='type-ahead-results' *ngIf='showSearchResults()'>
-  <li *ngFor='let user of searchResults' (click)='select(user)'>
+  <li *ngFor='let user of searchResults; let i = index;' 
+    (click)='select(user)' 
+    (keypress)='checkEnterKey($event, user)' 
+    (keydown)='checkArrowKeys($event, i+1)'
+    tabindex='0'>
     {{user.email}}
   </li>
 </ul>

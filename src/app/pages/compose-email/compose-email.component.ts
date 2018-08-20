@@ -8,6 +8,7 @@ import { EmailApiService } from '../../modules/email-search/email-api.service';
   encapsulation: ViewEncapsulation.None
 })
 export class ComposeEmailComponent implements OnInit {
+  public statusClassName: string;
   public toSearchValue: string;
   public ccSearchValue: string;
 
@@ -26,17 +27,44 @@ export class ComposeEmailComponent implements OnInit {
   }
 
   public toEmailSelected(email): void {
-    console.log('to email', email);
     this.data.to = email;
   }
 
   public ccEmailSelected(email): void {
-    console.log('cc email', email);
     this.data.cc.push(email);
   }
 
   public submit(): void {
+    if (this.disableSubmission()) {
+      return;
+    }
+
+    this.responseMessage = '';
     this.service.submit(this.data).subscribe(result => {
+      this.handleSuccess();
+    }, error => {
+      this.handleFailure(error);
+    });
+  }
+
+  public disableSubmission(): boolean {
+    if (this.data.to && this.data.subject && this.data.body) {
+      return false;
+    }
+
+    return true;
+  }
+
+  private setStatusError(): void {
+    this.statusClassName = 'error';
+  }
+
+  private setStatusSuccess(): void {
+    this.statusClassName = 'success';
+  }
+
+  private handleSuccess(): void {
+      this.setStatusSuccess();
       this.responseMessage = 'Your email has been submitted';
       this.toSearchValue = '';
       this.ccSearchValue = '';
@@ -44,8 +72,10 @@ export class ComposeEmailComponent implements OnInit {
       this.data.cc = [];
       this.data.subject = '';
       this.data.body = '';
-    }, error => {
-      console.log(error);
+  }
+
+  private handleFailure(error): void {
+    this.setStatusError();
       switch (error.status) {
         case 400:
           this.responseMessage = 'Your submission was invalid';
@@ -59,6 +89,5 @@ export class ComposeEmailComponent implements OnInit {
           this.responseMessage = 'An error has occurred';
           break;
       }
-    });
   }
 }

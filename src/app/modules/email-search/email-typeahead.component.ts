@@ -41,4 +41,31 @@ export class EmailTypeaheadComponent implements OnInit {
   public showSearchResults(): boolean {
     return this.searchResults && this.searchResults.length !== 0;
   }
+
+  public checkEnterKey(event, user) {
+    const code = event.keyCode ? event.keyCode : event.which;
+    if (code === 13) {
+      this.select(user);
+    }
+  }
+
+  public checkArrowKeys(event, itemNumber) {
+    const code = event.keyCode ? event.keyCode : event.which;
+    switch (code) {
+      case 38: // key up
+        if (event.srcElement.previousElementSibling) {
+          event.srcElement.previousElementSibling.focus();
+        }
+        break;
+
+      case 40: // key down
+        if (event.srcElement.nextElementSibling) {
+          event.srcElement.nextElementSibling.focus();
+        }
+        break;
+
+      default:
+        break;
+    }
+  }
 }

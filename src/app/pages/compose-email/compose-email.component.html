@@ -1,7 +1,7 @@
-<h3 class='status'>{{responseMessage}}</h3>
+<h3 class='status {{statusClassName}}'>{{responseMessage}}</h3>
 <div class='row'>
   <div class="col-xs-12 col-sm-1">
-    <label>To:</label>
+    <label>To: <span class='required'>*</span></label>
   </div>
   <div class="col-xs-12 col-sm-11 form-element">
       <app-email-typeahead [max]='1' (selected)='toEmailSelected($event)' [(searchValue)]='toSearchValue'></app-email-typeahead>
@@ -19,7 +19,7 @@
 
 <div class='row'>
   <div class="col-xs-12 col-sm-1">
-    <label>Subject:</label>
+    <label>Subject: <span class='required'>*</span></label>
   </div>
   <div class="col-xs-12 col-sm-11 form-element">
       <input type='text' [(ngModel)]='data.subject' />
@@ -27,7 +27,7 @@
 </div>
 
 <div class='row'>
-  <div class="col-xs-12 col-sm-1"><label>Body:</label></div>
+  <div class="col-xs-12 col-sm-1"><label>Body: <span class='required'>*</span></label></div>
   <div class="col-xs-12 col-sm-11 form-element">
     <textarea [(ngModel)]='data.body' rows='10' cols='41'></textarea>
   </div>
@@ -36,6 +36,6 @@
 <div class='row'>
   <div class="col-xs-12 col-sm-1"></div>
   <div class="col-xs-12 col-sm-11">
-    <button (click)='submit()'>Submit</button>
+    <button (click)='submit()' [disabled]='disableSubmission()'>Submit</button>
   </div>
 </div>

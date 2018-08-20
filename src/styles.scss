@@ -1,2 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 @import '../node_modules/flexboxgrid/dist/flexboxgrid.min.css';
+
+$error-color: #C0392B;
+$success-color: #3498DB;
+
+h3.status {
+    text-align: center;
+}
+
+label .required {
+    color: $error-color;
+}
+
+.error {
+    color: $error-color;
+}
+
+.success {
+    color: $success-color;
+}
